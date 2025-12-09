@@ -6,14 +6,16 @@ import { AlbumView } from './components/AlbumView';
 import { PHOTO_STYLES } from './constants';
 import { AppState, GeneratedImage, Gender } from './types';
 import { generateStyledImage } from './services/genai';
-import { Clock } from 'lucide-react';
+import { Clock, PauseCircle, PlayCircle, AlertTriangle } from 'lucide-react';
 
-// Strictly limit to 1 request at a time to prevent 429 RESOURCE_EXHAUSTED
+// Strictly limit to 1 request at a time
 const MAX_CONCURRENCY = 1;
-// Minimum delay between successful requests to prevent bursting
-const REQUEST_DELAY_MS = 5000; 
-// Base cooldown when a 429 is hit
-const BASE_COOLDOWN_MS = 20000;
+// Increased delay to 10 seconds (max 6 RPM) to be safe for free/lower tiers
+const REQUEST_DELAY_MS = 10000; 
+// Increased base cooldown to 60 seconds for 429 errors
+const BASE_COOLDOWN_MS = 60000;
+// Stop automatically after this many consecutive errors
+const MAX_CONSECUTIVE_ERRORS = 3;
 
 const App: React.FC = () => {
   const [state, setState] = useState<AppState>({
@@ -29,8 +31,9 @@ const App: React.FC = () => {
   const [cooldownUntil, setCooldownUntil] = useState<number>(0);
   const [consecutiveErrors, setConsecutiveErrors] = useState(0);
   const [timeRemaining, setTimeRemaining] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
-  // Phase 1: Upload and Initialization (Set everything to Idle)
+  // Phase 1: Upload and Initialization
   const handleStart = (image: string, gender: Gender) => {
     const initialResults: Record<number, GeneratedImage> = {};
     
@@ -43,16 +46,17 @@ const App: React.FC = () => {
     });
 
     setResults(initialResults);
-    setSelectedStyles(new Set()); // Reset selection
+    setSelectedStyles(new Set()); 
     setState(prev => ({
       ...prev,
       uploadedImage: image,
       gender,
-      queue: [], // Queue is empty until user selects styles
+      queue: [],
       activeRequests: 0
     }));
     setCooldownUntil(0);
     setConsecutiveErrors(0);
+    setIsPaused(false);
   };
 
   const handleRetry = (styleId: number) => {
@@ -61,7 +65,6 @@ const App: React.FC = () => {
       [styleId]: { ...prev[styleId], status: 'pending', error: undefined, imageUrl: null }
     }));
     
-    // Remove from selection so it doesn't get confused with "Generate Selected" vs "Album"
     setSelectedStyles(prev => {
         const next = new Set(prev);
         next.delete(styleId);
@@ -72,16 +75,15 @@ const App: React.FC = () => {
       ...prev,
       queue: [...prev.queue, styleId]
     }));
+    // Auto-resume if retrying manually
+    if (isPaused) setIsPaused(false);
   };
 
-  // Phase 2: User Selects Styles to Generate
   const handleGenerateSelected = () => {
-      // Cast Array.from result to number[] to avoid 'unknown' type inference on index
       const stylesToGenerate = (Array.from(selectedStyles) as number[]).filter(id => results[id]?.status === 'idle');
       
       if (stylesToGenerate.length === 0) return;
 
-      // Update status to pending
       setResults(prev => {
           const next = { ...prev };
           stylesToGenerate.forEach(id => {
@@ -90,14 +92,13 @@ const App: React.FC = () => {
           return next;
       });
 
-      // Add to queue
       setState(prev => ({
           ...prev,
           queue: [...prev.queue, ...stylesToGenerate]
       }));
 
-      // Clear selection to prepare for next interaction (or album selection)
       setSelectedStyles(new Set());
+      if (isPaused) setIsPaused(false);
   };
 
   const toggleSelection = (id: number) => {
@@ -114,18 +115,15 @@ const App: React.FC = () => {
     const idleIds = resultsArray.filter(r => r.status === 'idle').map(r => r.styleId);
     const completedIds = resultsArray.filter(r => r.status === 'completed').map(r => r.styleId);
     
-    // Priority: Select all Idle (for generation). If no Idle, toggle Completed (for album).
     if (idleIds.length > 0) {
         const allIdleSelected = idleIds.every(id => selectedStyles.has(id));
         if (allIdleSelected) {
-             // Deselect all idle
              setSelectedStyles(prev => {
                  const next = new Set(prev);
                  idleIds.forEach(id => next.delete(id));
                  return next;
              });
         } else {
-            // Select all idle
             setSelectedStyles(prev => {
                 const next = new Set(prev);
                 idleIds.forEach(id => next.add(id));
@@ -142,9 +140,9 @@ const App: React.FC = () => {
     }
   };
 
-  // Timer Effect for UI countdown
+  // Timer Effect
   useEffect(() => {
-    if (cooldownUntil === 0) {
+    if (cooldownUntil === 0 || isPaused) {
         setTimeRemaining(0);
         return;
     }
@@ -158,12 +156,11 @@ const App: React.FC = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [cooldownUntil]);
+  }, [cooldownUntil, isPaused]);
 
-  // Queue Processor Effect
+  // Queue Processor
   useEffect(() => {
-    // If cooling down, do nothing
-    if (cooldownUntil > Date.now()) {
+    if (isPaused || cooldownUntil > Date.now()) {
         return;
     }
 
@@ -172,7 +169,6 @@ const App: React.FC = () => {
         return;
       }
 
-      // Take just ONE item at a time
       const styleId = state.queue[0];
       const remainingQueue = state.queue.slice(1);
 
@@ -187,7 +183,7 @@ const App: React.FC = () => {
 
     processQueue();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.queue, state.activeRequests, state.uploadedImage, cooldownUntil]);
+  }, [state.queue, state.activeRequests, state.uploadedImage, cooldownUntil, isPaused]);
 
 
   const processStyle = async (styleId: number) => {
@@ -214,43 +210,52 @@ const App: React.FC = () => {
         [styleId]: { ...prev[styleId], status: 'completed', imageUrl }
       }));
       
-      // Success! Reset error count.
       setConsecutiveErrors(0);
-
-      // Enforce a small delay even on success to prevent bursting
       setCooldownUntil(Date.now() + REQUEST_DELAY_MS);
 
     } catch (error: any) {
       console.error(`Failed to generate style ${styleId}`, error);
       
       const errorMessage = error?.message || '';
-      // Check for 429 or quota related errors
       const isRateLimit = errorMessage.includes('429') || errorMessage.includes('quota') || errorMessage.includes('RESOURCE_EXHAUSTED');
 
       if (isRateLimit) {
         const newConsecutiveErrors = consecutiveErrors + 1;
         setConsecutiveErrors(newConsecutiveErrors);
         
-        // Exponential backoff: 20s, 40s, 80s...
-        const backoffTime = BASE_COOLDOWN_MS * Math.pow(2, newConsecutiveErrors - 1);
-        console.warn(`Rate limit hit! Backing off for ${backoffTime/1000}s. Consecutive errors: ${newConsecutiveErrors}`);
-        
-        // 1. Set cooldown
-        setCooldownUntil(Date.now() + backoffTime);
+        // CIRCUIT BREAKER
+        if (newConsecutiveErrors >= MAX_CONSECUTIVE_ERRORS) {
+            console.warn("Max consecutive errors reached. Pausing queue.");
+            setIsPaused(true);
+            setCooldownUntil(0); // Stop timer, wait for manual resume
+            
+            // Put back in queue
+            setState(prev => ({
+                ...prev,
+                queue: [styleId, ...prev.queue]
+            }));
 
-        // 2. Put this item back at the FRONT of the queue
-        setState(prev => ({
-            ...prev,
-            queue: [styleId, ...prev.queue]
-        }));
+            setResults(prev => ({
+                ...prev,
+                [styleId]: { ...prev[styleId], status: 'pending', error: "Rate limit reached. Paused." }
+            }));
+        } else {
+            // Standard Backoff
+            const backoffTime = BASE_COOLDOWN_MS * Math.pow(2, newConsecutiveErrors - 1);
+            setCooldownUntil(Date.now() + backoffTime);
 
-        // 3. Reset status to pending so UI shows it's waiting
-        setResults(prev => ({
-            ...prev,
-            [styleId]: { ...prev[styleId], status: 'pending', error: undefined }
-        }));
+            setState(prev => ({
+                ...prev,
+                queue: [styleId, ...prev.queue]
+            }));
+
+            setResults(prev => ({
+                ...prev,
+                [styleId]: { ...prev[styleId], status: 'pending', error: undefined }
+            }));
+        }
       } else {
-        // Permanent failure for non-rate-limit errors
+        // Permanent failure
         setResults(prev => ({
             ...prev,
             [styleId]: { 
@@ -259,16 +264,22 @@ const App: React.FC = () => {
             error: errorMessage || 'Unknown error' 
             }
         }));
-        // Even on failure, reset consecutive rate limit errors to avoid punishing logic errors
         setConsecutiveErrors(0);
       }
     } finally {
-      // Always decrement active requests
       setState(prev => ({
         ...prev,
         activeRequests: prev.activeRequests - 1
       }));
     }
+  };
+
+  const handlePauseToggle = () => {
+    if (isPaused) {
+        setConsecutiveErrors(0); // Reset error count on manual resume
+        setCooldownUntil(0);
+    }
+    setIsPaused(!isPaused);
   };
 
   return (
@@ -278,23 +289,62 @@ const App: React.FC = () => {
       <main className="container mx-auto px-4 py-8">
         <UploadSection 
           onStart={handleStart} 
-          isProcessing={state.queue.length > 0 || state.activeRequests > 0 || cooldownUntil > Date.now()} 
+          isProcessing={state.queue.length > 0 || state.activeRequests > 0 || isPaused} 
         />
         
-        {/* Cooldown Indicator */}
-        {timeRemaining > 0 && (
-            <div className="max-w-7xl mx-auto mb-6 px-4">
-                <div className="bg-amber-500/10 border border-amber-500/30 text-amber-300 px-6 py-4 rounded-xl flex flex-col sm:flex-row items-center justify-between gap-4 animate-pulse shadow-lg shadow-amber-900/10">
+        {/* Status Banners */}
+        <div className="max-w-7xl mx-auto mb-6 px-4 space-y-4">
+            
+            {/* 1. Queue Status & Manual Pause Control */}
+            {state.queue.length > 0 && (
+                 <div className="flex items-center justify-between bg-slate-900 border border-slate-800 p-4 rounded-xl">
+                    <div className="flex items-center gap-3">
+                        <div className={`w-3 h-3 rounded-full ${isPaused ? 'bg-amber-500 animate-pulse' : 'bg-green-500 animate-pulse'}`}></div>
+                        <span className="text-slate-300 font-medium">
+                            {isPaused ? 'Generation Paused' : `Processing Queue (${state.queue.length} remaining)`}
+                        </span>
+                    </div>
+                    <button 
+                        onClick={handlePauseToggle}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-lg font-bold text-sm transition-all ${
+                            isPaused 
+                            ? 'bg-green-600 hover:bg-green-500 text-white' 
+                            : 'bg-slate-700 hover:bg-slate-600 text-slate-300'
+                        }`}
+                    >
+                        {isPaused ? <PlayCircle className="w-4 h-4" /> : <PauseCircle className="w-4 h-4" />}
+                        {isPaused ? 'Resume Generation' : 'Pause'}
+                    </button>
+                 </div>
+            )}
+
+            {/* 2. Cooldown Countdown */}
+            {timeRemaining > 0 && !isPaused && (
+                <div className="bg-blue-500/10 border border-blue-500/30 text-blue-300 px-6 py-4 rounded-xl flex items-center justify-between gap-4 animate-pulse">
                     <div className="flex items-center gap-3">
                         <Clock className="w-5 h-5" />
-                        <span className="font-medium">API Limit Reached. Pausing queue to recover quota...</span>
+                        <span className="font-medium">Pacing requests to respect API limits...</span>
                     </div>
-                    <div className="bg-amber-500/20 px-4 py-1 rounded-full font-mono font-bold text-amber-200 border border-amber-500/30">
-                        Resuming in {timeRemaining}s
+                    <div className="font-mono font-bold">
+                        {timeRemaining}s
                     </div>
                 </div>
-            </div>
-        )}
+            )}
+
+            {/* 3. Circuit Breaker Warning */}
+            {isPaused && consecutiveErrors >= MAX_CONSECUTIVE_ERRORS && (
+                <div className="bg-red-500/10 border border-red-500/30 text-red-200 px-6 py-4 rounded-xl flex items-center gap-3">
+                    <AlertTriangle className="w-6 h-6 text-red-400" />
+                    <div>
+                        <p className="font-bold">Generation Paused: High Error Rate</p>
+                        <p className="text-sm text-red-300/80">
+                            We hit the API rate limit multiple times. The queue has been paused to prevent further errors. 
+                            Please wait a minute before clicking "Resume".
+                        </p>
+                    </div>
+                </div>
+            )}
+        </div>
         
         <StyleGrid 
           results={results} 
