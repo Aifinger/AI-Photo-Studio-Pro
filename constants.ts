@@ -65,5 +65,47 @@ export const PHOTO_STYLES: PhotoStyle[] = [
   { id: 55, category: "Cultural", name: "中式明朝服饰", promptSuffix: "Chinese Ming Dynasty portrait, mamianqun horse face skirt, cross-collar robe, gold jewelry, dignified pose, classical Chinese architecture background, rich colors" },
   { id: 56, category: "Cultural", name: "中式清朝服饰", promptSuffix: "Chinese Qing Dynasty portrait, traditional Manchurian dress, qipao, floral headdress (dianzi), delicate embroidery, palace garden background, noble elegance" },
   { id: 57, category: "Cultural", name: "苗族服饰风格", promptSuffix: "Miao ethnic minority portrait, elaborate silver headdress and jewelry, colorful embroidered traditional clothing, festival atmosphere, vibrant patterns, cultural heritage" },
-  { id: 58, category: "Cultural", name: "彝族服饰风格", promptSuffix: "Yi ethnic minority portrait, traditional black and red clothing with yellow patterns, large fringed headwear, silver ornaments, mountainous landscape background, bold and spirited" }
+  { id: 58, category: "Cultural", name: "彝族服饰风格", promptSuffix: "Yi ethnic minority portrait, traditional black and red clothing with yellow patterns, large fringed headwear, silver ornaments, mountainous landscape background, bold and spirited" },
+
+  // New Styles Batch 3
+  { id: 59, category: "Fashion", name: "高定礼服写真", promptSuffix: "High-end couture evening gown portrait, elegant red carpet look, luxurious fabric, diamonds and jewelry, sophisticated pose, gala event atmosphere" },
+  { id: 60, category: "Korean", name: "韩系清纯写真", promptSuffix: "Korean portrait style, clean 'glass skin' makeup, soft natural lighting, minimal studio background, ulzzang aesthetic, pure and innocent vibe" },
+  { id: 61, category: "Fashion", name: "高冷御姐风", promptSuffix: "Mature 'cool sister' style, confident and domineering expression, sharp blazer or fashion coat, modern city luxury background, strong independent aura" },
+  { id: 62, category: "Cultural", name: "中式旗袍风格", promptSuffix: "Traditional Chinese Cheongsam Qipao portrait, silk texture, Shanghai 1930s vibe, elegant curves, fan or tea prop, oriental classical beauty, cinematic lighting" },
+  { id: 63, category: "Retro", name: "经典港风女神", promptSuffix: "Classic Hong Kong beauty, flowing wavy hair, red lips, soft focus hazy filter, 80s movie star aesthetic, glamorous and nostalgic" },
+  { id: 64, category: "Korean", name: "韩系财阀千金", promptSuffix: "Korean chaebol daughter style, rich girl aesthetic, tweed jacket, pearl accessories, expensive interior background, elegant, haughty and sophisticated" },
+  { id: 65, category: "Fashion", name: "摩登黑色系", promptSuffix: "Modern black fashion style, confident woman in stylish black outfit and sheer black tights, high heels, night city background, cool mysterious vibe, vogue photography" },
+  { id: 66, category: "Sweet", name: "甜美白丝少女", promptSuffix: "Sweet girl style, white knee-high socks, cute dress, pastel colors, soft daylight, kawaii aesthetic, innocent and charming pose" },
+
+  // New Styles Batch 4 (User Request)
+  { id: 67, category: "Art", name: "法式油画风格", promptSuffix: "French oil painting style, textured brushstrokes, romantic pastel colors, soft light, vintage garden background, elegant and artistic, masterpiece" },
+  { id: 68, category: "Korean", name: "纯欲风格", promptSuffix: "Pure and sultry style, soft focus, flushed cheeks, innocent yet charming expression, white lace or silk camisole, intimate indoor lighting, dreamy atmosphere" },
+  { id: 69, category: "Japanese", name: "日系少女风格", promptSuffix: "Japanese fresh girl style, JK uniform or sailor suit, bright blue sky background, cherry blossoms, overexposed film photography look, youthful and energetic" },
+  { id: 70, category: "Fashion", name: "牛仔风格", promptSuffix: "Denim fashion editorial, denim jacket and jeans, cool blue tones, casual street style, textured fabric detail, confident pose, modern Americana" },
+  { id: 71, category: "Life", name: "生日少女风格", promptSuffix: "Birthday girl portrait, wearing a princess tiara, holding a cake with candles, balloons and party decor in background, sparkles, celebratory happy vibe" },
+  { id: 72, category: "Fashion", name: "酷飒斩女风格", promptSuffix: "Cool girl crush style, sharp eyeliner, leather jacket, confident smirk, dynamic angle, k-pop idol stage presence, fierce and empowering" },
+  { id: 73, category: "Wedding", name: "婚纱写真", promptSuffix: "Bridal portrait, white wedding dress with long veil, holding a bouquet of white roses, soft romantic lighting, dreamy garden or chapel background, elegant and ethereal" },
+  { id: 74, category: "Dark", name: "暗黑写真", promptSuffix: "Gothic portrait, black lace dress, pale skin, dark red lips, victorian gothic aesthetic, mysterious castle background, moody atmosphere, cinematic lighting" },
+  { id: 75, category: "Fashion", name: "辣妹风格", promptSuffix: "Y2K hot girl style, crop top, mini skirt, vibrant colors, 2000s fashion trends, playful pose, retro digital camera aesthetic, confident and spicy" },
+  { id: 76, category: "Retro", name: "经典赫本风格", promptSuffix: "Audrey Hepburn style, black and white photography, little black dress, pearl necklace, updo hairstyle, cat eye sunglasses, vintage Hollywood glamour, timeless elegance" },
+  { id: 77, category: "Fashion", name: "肯豆风格", promptSuffix: "Off-duty supermodel look, minimalist high fashion, sunglasses, slicked back hair, paparazzi style street photography, neutral tones, chic and modern city vibe" },
+
+  // New Styles Batch 5 (New Year)
+  { id: 78, category: "Holiday", name: "元旦新年风格", promptSuffix: "New Year's Day celebration portrait, festive confetti, holding sparklers, glamorous party outfit, happy hopeful expression, bokeh city lights background, 2025 vibes, modern and chic" },
+  { id: 79, category: "Holiday", name: "中式农历新年", promptSuffix: "Chinese Lunar New Year Spring Festival portrait, wearing red festive clothing or modern tang suit, holding red lantern or red envelope, red background with gold paper cutouts, prosperous and joyful atmosphere, soft lighting" },
+
+  // New Styles Batch 6 (Ethnic Minorities & Traditional)
+  { id: 80, category: "Cultural", name: "藏族卓玛风格", promptSuffix: "Tibetan Zhuoma portrait, traditional Tibetan robe with colorful stripes, braided hair with turquoise and coral jewelry, plateau grassland background with prayer flags, sun-kissed cheeks, holy and pure" },
+  { id: 81, category: "Cultural", name: "苗族银饰盛装", promptSuffix: "Grand Miao ethnic style, heavy intricate silver headdress (horns) and necklace, dark embroidered clothing with vibrant patterns, mystical mountain village background, heritage and ceremonial atmosphere" },
+  { id: 82, category: "Cultural", name: "西域公主风格", promptSuffix: "Western Region Princess (Dunhuang style), exotic veil, golden accessories, flying ribbons (Feitian), desert dunes background, camel bells, mysterious and enchanting, Silk Road aesthetic" },
+  { id: 83, category: "Cultural", name: "红色彝族风情", promptSuffix: "Red Yi ethnic style, vibrant red traditional clothing with black accents, flame patterns, intricate silver jewelry, celebration fire festival background, passionate and bold" },
+  { id: 84, category: "Cultural", name: "蓝色彝族风情", promptSuffix: "Blue Yi ethnic style, deep blue and cyan traditional attire, distinct headwrap, silver ornaments, cool tone mountain background, mysterious and elegant, cold beauty" },
+  { id: 85, category: "Art", name: "水墨国风", promptSuffix: "Chinese Ink Wash painting style, black and white watercolor background, calligraphy elements, traditional makeup, ethereal and poetic, like a character walking out of a scroll" },
+  { id: 86, category: "Cultural", name: "哈尼甜心风格", promptSuffix: "Hani ethnic style, adorable and sweet, decorated headdress with beads and coins, colorful layers, terraced rice fields background, soft sunlight, lively and youthful" },
+  { id: 87, category: "Cultural", name: "朝鲜公主风格", promptSuffix: "Traditional Joseon Dynasty princess, Hanbok with vibrant chima and jeogori, braided hair with daenggi ribbon, palace garden background, elegant and noble, historical drama vibe" },
+  { id: 88, category: "Cultural", name: "傣族孔雀风格", promptSuffix: "Dai ethnic style, tight-fitting peacock dress showing curves, tropical rainforest background, frangipani flowers, wet look or water splashing festival vibe, exotic and graceful" },
+  { id: 89, category: "Cultural", name: "壮族歌仙风格", promptSuffix: "Zhuang ethnic style, traditional blue and black clothing with intricate brocade, holding an embroidered ball, Guilin karst mountains background, folk song festival atmosphere" },
+  { id: 90, category: "Cultural", name: "满族格格风格", promptSuffix: "Manchu noble lady (Gege), large floral headdress, ornate qipao/robe, silk scarf, Forbidden City red wall background, classical elegance, Qing dynasty court style" },
+  { id: 91, category: "Cultural", name: "蒙古族草原风格", promptSuffix: "Mongolian princess, fur-trimmed hat, ornate robe (del), vast grassland background, yurt in distance, wind in hair, heroic and free-spirited" },
+  { id: 92, category: "Cultural", name: "侗族大歌风格", promptSuffix: "Dong ethnic style, indigo dyed clothing, silver neck rings and headdress, Drum Tower architecture background, wooden bridge, cultural and artistic" }
 ];
