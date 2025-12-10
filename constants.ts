@@ -87,8 +87,8 @@ export const PHOTO_STYLES: PhotoStyle[] = [
   { id: 73, category: "Wedding", name: "婚纱写真", promptSuffix: "Bridal portrait, white wedding dress with long veil, holding a bouquet of white roses, soft romantic lighting, dreamy garden or chapel background, elegant and ethereal" },
   { id: 74, category: "Dark", name: "暗黑写真", promptSuffix: "Gothic portrait, black lace dress, pale skin, dark red lips, victorian gothic aesthetic, mysterious castle background, moody atmosphere, cinematic lighting" },
   { id: 75, category: "Fashion", name: "辣妹风格", promptSuffix: "Y2K hot girl style, crop top, mini skirt, vibrant colors, 2000s fashion trends, playful pose, retro digital camera aesthetic, confident and spicy" },
-  { id: 76, category: "Retro", name: "经典赫本风格", promptSuffix: "Audrey Hepburn style, black and white photography, little black dress, pearl necklace, updo hairstyle, cat eye sunglasses, vintage Hollywood glamour, timeless elegance" },
-  { id: 77, category: "Fashion", name: "肯豆风格", promptSuffix: "Off-duty supermodel look, minimalist high fashion, sunglasses, slicked back hair, paparazzi style street photography, neutral tones, chic and modern city vibe" },
+  { id: 76, category: "Retro", name: "经典赫本风格", promptSuffix: "Vintage 1950s Hollywood fashion, classic little black dress, pearl necklace, elegant updo hairstyle, black and white photography, retro glamour vibe" },
+  { id: 77, category: "Fashion", name: "肯豆风格", promptSuffix: "Modern off-duty supermodel street fashion, minimalist outfit in neutral tones, sunglasses, slicked back hair, paparazzi style photography, chic city vibe" },
 
   // New Styles Batch 5 (New Year)
   { id: 78, category: "Holiday", name: "元旦新年风格", promptSuffix: "New Year's Day celebration portrait, festive confetti, holding sparklers, glamorous party outfit, happy hopeful expression, bokeh city lights background, 2025 vibes, modern and chic" },
@@ -109,9 +109,11 @@ export const PHOTO_STYLES: PhotoStyle[] = [
   { id: 91, category: "Cultural", name: "蒙古族草原风格", promptSuffix: "Mongolian princess, fur-trimmed hat, ornate robe (del), vast grassland background, yurt in distance, wind in hair, heroic and free-spirited" },
   { id: 92, category: "Cultural", name: "侗族大歌风格", promptSuffix: "Dong ethnic style, indigo dyed clothing, silver neck rings and headdress, Drum Tower architecture background, wooden bridge, cultural and artistic" },
 
+  // New Styles to Fill Gaps (93 & 94)
+  { id: 93, category: "Vintage", name: "法式田园风", promptSuffix: "French pastoral cottagecore style, vintage floral dress, straw hat, picnic in a meadow, soft sunlight, romantic and peaceful nature vibe" },
+  { id: 94, category: "Fashion", name: "英伦学院风", promptSuffix: "British light academia style, beige trench coat or blazer, plaid scarf, autumn university campus background, intellectual and classic elegant look" },
+
   // New Styles Batch 7 (Career & Sports)
-  { id: 93, category: "Career", name: "空姐职业风格", promptSuffix: "Professional flight attendant portrait, wearing elegant airline uniform with silk neck scarf, airplane cabin aisle background, warm welcoming smile, soft lighting, high class service vibe" },
-  { id: 94, category: "Career", name: "护士职业风格", promptSuffix: "Professional nurse portrait, wearing clean medical scrubs or white coat, stethoscope, hospital corridor or clinic background, caring and gentle expression, bright and sanitary aesthetic" },
   { id: 95, category: "Career", name: "老师职业风格", promptSuffix: "Professional teacher portrait, wearing smart casual blazer or cardigan, holding a book, library or classroom background with chalkboard, intellectual and approachable, warm lighting" },
   { id: 96, category: "Sport", name: "网球宝贝", promptSuffix: "Tennis player portrait, wearing white tennis skirt and polo shirt, holding tennis racket, sunny tennis court background, ponytail, energetic and sporty, vibrant green and blue tones" },
   { id: 97, category: "Sport", name: "啦啦队职业风格", promptSuffix: "Cheerleader portrait, wearing colorful cheerleading uniform, holding pom-poms, american high school stadium background, dynamic pose, bright sunshine, youthful energy" },
