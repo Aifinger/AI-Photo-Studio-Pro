@@ -107,5 +107,13 @@ export const PHOTO_STYLES: PhotoStyle[] = [
   { id: 89, category: "Cultural", name: "壮族歌仙风格", promptSuffix: "Zhuang ethnic style, traditional blue and black clothing with intricate brocade, holding an embroidered ball, Guilin karst mountains background, folk song festival atmosphere" },
   { id: 90, category: "Cultural", name: "满族格格风格", promptSuffix: "Manchu noble lady (Gege), large floral headdress, ornate qipao/robe, silk scarf, Forbidden City red wall background, classical elegance, Qing dynasty court style" },
   { id: 91, category: "Cultural", name: "蒙古族草原风格", promptSuffix: "Mongolian princess, fur-trimmed hat, ornate robe (del), vast grassland background, yurt in distance, wind in hair, heroic and free-spirited" },
-  { id: 92, category: "Cultural", name: "侗族大歌风格", promptSuffix: "Dong ethnic style, indigo dyed clothing, silver neck rings and headdress, Drum Tower architecture background, wooden bridge, cultural and artistic" }
+  { id: 92, category: "Cultural", name: "侗族大歌风格", promptSuffix: "Dong ethnic style, indigo dyed clothing, silver neck rings and headdress, Drum Tower architecture background, wooden bridge, cultural and artistic" },
+
+  // New Styles Batch 7 (Career & Sports)
+  { id: 93, category: "Career", name: "空姐职业风格", promptSuffix: "Professional flight attendant portrait, wearing elegant airline uniform with silk neck scarf, airplane cabin aisle background, warm welcoming smile, soft lighting, high class service vibe" },
+  { id: 94, category: "Career", name: "护士职业风格", promptSuffix: "Professional nurse portrait, wearing clean medical scrubs or white coat, stethoscope, hospital corridor or clinic background, caring and gentle expression, bright and sanitary aesthetic" },
+  { id: 95, category: "Career", name: "老师职业风格", promptSuffix: "Professional teacher portrait, wearing smart casual blazer or cardigan, holding a book, library or classroom background with chalkboard, intellectual and approachable, warm lighting" },
+  { id: 96, category: "Sport", name: "网球宝贝", promptSuffix: "Tennis player portrait, wearing white tennis skirt and polo shirt, holding tennis racket, sunny tennis court background, ponytail, energetic and sporty, vibrant green and blue tones" },
+  { id: 97, category: "Sport", name: "啦啦队职业风格", promptSuffix: "Cheerleader portrait, wearing colorful cheerleading uniform, holding pom-poms, american high school stadium background, dynamic pose, bright sunshine, youthful energy" },
+  { id: 98, category: "Sport", name: "棒球宝贝职业风格", promptSuffix: "Baseball player portrait, wearing baseball jersey and cap, holding baseball bat, baseball field diamond background, sunlight, cool and sporty, athletic vibe" }
 ];
