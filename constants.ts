@@ -58,5 +58,12 @@ export const PHOTO_STYLES: PhotoStyle[] = [
   // New Holiday Styles
   { id: 51, category: "Holiday", name: "圣诞节日写真", promptSuffix: "Christmas holiday portrait, festive red and green, bokeh lights, snow, cozy winter vibe, Santa hat optional" },
   { id: 52, category: "Holiday", name: "复活节梦幻风", promptSuffix: "Easter holiday portrait, pastel colors, spring flowers, bunny ears element, soft dreamy lighting, wonderland" },
-  { id: 53, category: "Holiday", name: "亡灵节暗黑风", promptSuffix: "Day of the Dead Dia de los Muertos, sugar skull makeup art, marigold flowers, vibrant colors, dark mysterious atmosphere" }
+  { id: 53, category: "Holiday", name: "亡灵节暗黑风", promptSuffix: "Day of the Dead Dia de los Muertos, sugar skull makeup art, marigold flowers, vibrant colors, dark mysterious atmosphere" },
+  
+  // New Chinese Cultural Styles
+  { id: 54, category: "Cultural", name: "中式汉服风格", promptSuffix: "Traditional Chinese Hanfu portrait, flowing silk robes, wide sleeves, intricate embroidery, elegant hairstyle with hairpins, ancient garden background, ethereal atmosphere" },
+  { id: 55, category: "Cultural", name: "中式明朝服饰", promptSuffix: "Chinese Ming Dynasty portrait, mamianqun horse face skirt, cross-collar robe, gold jewelry, dignified pose, classical Chinese architecture background, rich colors" },
+  { id: 56, category: "Cultural", name: "中式清朝服饰", promptSuffix: "Chinese Qing Dynasty portrait, traditional Manchurian dress, qipao, floral headdress (dianzi), delicate embroidery, palace garden background, noble elegance" },
+  { id: 57, category: "Cultural", name: "苗族服饰风格", promptSuffix: "Miao ethnic minority portrait, elaborate silver headdress and jewelry, colorful embroidered traditional clothing, festival atmosphere, vibrant patterns, cultural heritage" },
+  { id: 58, category: "Cultural", name: "彝族服饰风格", promptSuffix: "Yi ethnic minority portrait, traditional black and red clothing with yellow patterns, large fringed headwear, silver ornaments, mountainous landscape background, bold and spirited" }
 ];
