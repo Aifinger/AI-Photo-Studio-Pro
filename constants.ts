@@ -1,3 +1,4 @@
+
 import { PhotoStyle } from './types';
 
 export const PHOTO_STYLES: PhotoStyle[] = [
@@ -29,7 +30,7 @@ export const PHOTO_STYLES: PhotoStyle[] = [
   { id: 23, category: "Youth", name: "校园青春系", promptSuffix: "Campus youth, school uniform or casual hoodie, library or playground, fresh face, nostalgic school days" },
   { id: 24, category: "Sport", name: "都市夜跑运动风", promptSuffix: "Urban night runner, activewear, motion blur background, city street lights, sweat, intense focus" },
   { id: 25, category: "Art", name: "复古油画感人像", promptSuffix: "Oil painting style portrait, textured brushstrokes, classical lighting, museum quality, rich colors" },
-  { id: 26, category: "Creative", name: "漫画分镜风", promptSuffix: "Manga storyboarding style, black and white ink, speech bubbles, dramatic angles, comic book aesthetic" },
+  { id: 26, category: "Creative", name: "Q版动画风", promptSuffix: "Chibi anime style, Q-version character, cute big head small body proportions, large expressive eyes, kawaii aesthetic, soft colorful lighting, 3D render or high quality illustration" },
   { id: 27, category: "Sci-Fi", name: "科幻光束摄影", promptSuffix: "Sci-fi light beam, laser lights, geometric shadows, futuristic studio, glowing lines" },
   { id: 28, category: "Retro", name: "蒸汽波色彩系", promptSuffix: "Vaporwave aesthetic, purple and teal gradient, retro 80s computer graphics, marble statues, glitch art" },
   { id: 29, category: "Art", name: "梦境反射水面", promptSuffix: "Dream reflection, water surface ripples, surreal composition, double exposure, mirrored world" },
@@ -117,5 +118,18 @@ export const PHOTO_STYLES: PhotoStyle[] = [
   { id: 95, category: "Career", name: "老师职业风格", promptSuffix: "Professional teacher portrait, wearing smart casual blazer or cardigan, holding a book, library or classroom background with chalkboard, intellectual and approachable, warm lighting" },
   { id: 96, category: "Sport", name: "网球宝贝", promptSuffix: "Tennis player portrait, wearing white tennis skirt and polo shirt, holding tennis racket, sunny tennis court background, ponytail, energetic and sporty, vibrant green and blue tones" },
   { id: 97, category: "Sport", name: "啦啦队职业风格", promptSuffix: "Cheerleader portrait, wearing colorful cheerleading uniform, holding pom-poms, american high school stadium background, dynamic pose, bright sunshine, youthful energy" },
-  { id: 98, category: "Sport", name: "棒球宝贝职业风格", promptSuffix: "Baseball player portrait, wearing baseball jersey and cap, holding baseball bat, baseball field diamond background, sunlight, cool and sporty, athletic vibe" }
+  { id: 98, category: "Sport", name: "棒球宝贝职业风格", promptSuffix: "Baseball player portrait, wearing baseball jersey and cap, holding baseball bat, baseball field diamond background, sunlight, cool and sporty, athletic vibe" },
+
+  // New Styles Batch 8 (User Request)
+  { id: 99, category: "Life", name: "清新文艺抱熊", promptSuffix: "Fresh literary style, wearing thin-rimmed glasses, holding a cute teddy bear, soft knitted sweater, cozy indoor light, gentle smile, clean background, innocent and artistic vibe" },
+  { id: 100, category: "Travel", name: "白宫国会毕业照", promptSuffix: "Graduation portrait, wearing academic gown and mortarboard cap, standing in front of the US Capitol Building with iconic dome, bright blue sky, holding a diploma, proud and successful, prestigious atmosphere" },
+  { id: 101, category: "Nature", name: "秋天落叶风格", promptSuffix: "Autumn portrait, surrounded by golden and red maple leaves, wearing a trench coat or warm scarf, soft sunlight filtering through trees, warm orange tones, romantic fall atmosphere, depth of field" },
+  { id: 102, category: "Nature", name: "冬季冰雪风格", promptSuffix: "Winter snow portrait, snowy landscape background, wearing a thick white coat and scarf, snowflakes falling, rosy cheeks, cold blue and white tones, magical winter wonderland, soft lighting" },
+
+  // New Styles Batch 9 (Scenic Travel)
+  { id: 103, category: "Travel", name: "落雪红墙故宫风格", promptSuffix: "Winter portrait in Forbidden City Beijing, falling snow, ancient red palace walls, traditional clothing or winter fashion, historical atmosphere, serene and majestic, oriental winter beauty" },
+  { id: 104, category: "Travel", name: "罗马假日风格", promptSuffix: "Roman Holiday style, Rome Italy background, Spanish Steps or Colosseum, vintage 1950s vacation vibe, Vespa scooter element, sunny and romantic, classic film aesthetic" },
+  { id: 105, category: "Travel", name: "埃菲尔铁塔背景风格", promptSuffix: "Parisian chic portrait, Eiffel Tower in background, Trocadero gardens, cloudy or sunset sky, trench coat or fashion outfit, romantic France travel vibe, elegant" },
+  { id: 106, category: "Travel", name: "意大利比萨斜塔风格", promptSuffix: "Italian travel portrait, Leaning Tower of Pisa background, sunny blue sky, summer outfit, holding gelato or tourist pose, joyful vacation atmosphere, iconic landmark" },
+  { id: 107, category: "Travel", name: "冰岛风光风格", promptSuffix: "Iceland travel portrait, dramatic black sand beach or waterfall background, moody cloudy sky, wearing parka or wool sweater, raw nature, cold tones, epic landscape" }
 ];
