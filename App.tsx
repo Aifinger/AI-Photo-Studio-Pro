@@ -217,9 +217,12 @@ const App: React.FC = () => {
       console.error(`Failed to generate style ${styleId}`, error);
       
       const errorMessage = error?.message || '';
+      // Check for Rate Limits (429)
       const isRateLimit = errorMessage.includes('429') || errorMessage.includes('quota') || errorMessage.includes('RESOURCE_EXHAUSTED');
+      // Check for Server/Network Errors (500, RPC, XHR)
+      const isServerError = errorMessage.includes('500') || errorMessage.includes('503') || errorMessage.includes('Rpc failed') || errorMessage.includes('xhr error') || errorMessage.includes('UNKNOWN');
 
-      if (isRateLimit) {
+      if (isRateLimit || isServerError) {
         const newConsecutiveErrors = consecutiveErrors + 1;
         setConsecutiveErrors(newConsecutiveErrors);
         
@@ -237,7 +240,7 @@ const App: React.FC = () => {
 
             setResults(prev => ({
                 ...prev,
-                [styleId]: { ...prev[styleId], status: 'pending', error: "Rate limit reached. Paused." }
+                [styleId]: { ...prev[styleId], status: 'pending', error: "Too many errors. Paused." }
             }));
         } else {
             // Standard Backoff
@@ -338,7 +341,7 @@ const App: React.FC = () => {
                     <div>
                         <p className="font-bold">Generation Paused: High Error Rate</p>
                         <p className="text-sm text-red-300/80">
-                            We hit the API rate limit multiple times. The queue has been paused to prevent further errors. 
+                            We encountered multiple errors (Rate Limit or Server Error). The queue has been paused to prevent further issues. 
                             Please wait a minute before clicking "Resume".
                         </p>
                     </div>
