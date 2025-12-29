@@ -1,3 +1,4 @@
+
 import { GoogleGenAI } from "@google/genai";
 import { Gender } from "../types";
 
@@ -17,15 +18,20 @@ export async function generateStyledImage(
     const mimeType = match ? match[1] : 'image/jpeg';
     const cleanBase64 = match ? match[2] : base64Image.replace(/^data:image\/[a-z]+;base64,/, '');
     
+    // Special instruction for male facial preservation
+    const facialFidelityInstruction = gender === 'male' 
+      ? "STRICTLY preserve the original face. The facial features, structure, and identity of the man in the input photo must remain UNCHANGED and IDENTICAL. Do not beautify, refine, or alter his face in any way."
+      : "Preserve the facial features and identity of the person in the reference image while applying the style.";
+
     // Construct a concise and strong prompt
     const prompt = `Generate a photorealistic portrait of a ${gender} based on the input image.
     Target Style: ${stylePromptSuffix}.
     
     Strict Requirements:
-    1. Preserve facial features of the reference person.
-    2. High resolution, professional photography.
-    3. Aspect ratio 3:4.
-    4. Ensure the image is aesthetically pleasing and high quality.`;
+    1. ${facialFidelityInstruction}
+    2. High resolution, professional photography quality.
+    3. Maintain aspect ratio 3:4.
+    4. Ensure the lighting and environment match the target style while keeping the person recognizable.`;
 
     const response = await ai.models.generateContent({
       model: MODEL_NAME,
@@ -42,7 +48,6 @@ export async function generateStyledImage(
             }
         ]
       },
-      // Fix: Add imageConfig to enforce 3:4 aspect ratio as requested in prompt
       config: {
           imageConfig: {
               aspectRatio: "3:4"
